@@ -1,0 +1,8 @@
+name: BomberMob
+version: '${project.version}'
+main: me.sedano.bombermob.BomberMob
+api-version: '1.17'
+load: STARTUP
+commands:
+  bomberegg:
+    usage: /bomberegg

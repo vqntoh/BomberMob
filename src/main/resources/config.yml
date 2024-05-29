@@ -1,0 +1,14 @@
+
+bomber-egg-name: "Bomber egg"
+
+# this MUST be a list of strings
+bomber-egg-lore:
+  - "Be careful"
+
+bomber-egg-custom-model-data: 0
+
+# this parameter is in seconds (20 ticks * 5 seconds)
+bomber-explosion-time: 5
+
+# health points of the bomber, 2 = 1 heart
+bomber-health: 50
