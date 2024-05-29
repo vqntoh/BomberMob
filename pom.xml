@@ -62,8 +62,8 @@
 
   <dependencies>
       <dependency>
-          <groupId>org.aresnetwork.server</groupId>
-          <artifactId>maincore-server</artifactId>
+          <groupId>me.sedano.bombermob</groupId>
+          <artifactId>bombermob-server</artifactId>
           <version>1</version>
           <scope>system</scope>
           <systemPath>${project.basedir}/library/patched_1.17.1.jar</systemPath>
