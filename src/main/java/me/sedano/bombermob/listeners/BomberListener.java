@@ -3,7 +3,6 @@ package me.sedano.bombermob.listeners;
 import me.sedano.bombermob.BomberMob;
 import me.sedano.bombermob.entity.Bomber;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,8 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 public class BomberListener implements Listener {
-    public static final String BOMBER_EGG_KEY = "BomberEgg";
-
     @EventHandler
     public void onPlayerSpawnBomberEvent(PlayerInteractEvent event) {
 
@@ -36,7 +33,7 @@ public class BomberListener implements Listener {
         if (!item.hasItemMeta()) return;
         ItemMeta meta = item.getItemMeta();
 
-        if (!meta.getPersistentDataContainer().has(new NamespacedKey(BomberMob.getInstance(), BOMBER_EGG_KEY), PersistentDataType.STRING))
+        if (!meta.getPersistentDataContainer().has(BomberMob.Keys.BOMBER_EGG_KEY, PersistentDataType.STRING))
             return;
 
         if (event.getClickedBlock() == null) return;
@@ -53,7 +50,7 @@ public class BomberListener implements Listener {
         if (!item.hasItemMeta()) return;
         ItemMeta meta = item.getItemMeta();
 
-        if (!meta.getPersistentDataContainer().has(new NamespacedKey(BomberMob.getInstance(), "BomberEgg"), PersistentDataType.STRING))
+        if (!meta.getPersistentDataContainer().has(BomberMob.Keys.BOMBER_EGG_KEY, PersistentDataType.STRING))
             return;
 
         event.setCancelled(true);
@@ -61,7 +58,7 @@ public class BomberListener implements Listener {
 
     @EventHandler
     public void onExplosionHitBomber(EntityDamageEvent event) {
-        if (event.getEntity().getPersistentDataContainer().has(new NamespacedKey(BomberMob.getInstance(), Bomber.BOMBER_KEY), PersistentDataType.STRING))
+        if (event.getEntity().getPersistentDataContainer().has(BomberMob.Keys.BOMBER_MOB_KEY, PersistentDataType.STRING))
             if (event.getCause() != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || event.getCause() != EntityDamageEvent.DamageCause.ENTITY_EXPLOSION)
                 return;
         event.setCancelled(true);
@@ -74,8 +71,7 @@ public class BomberListener implements Listener {
                 Player player = (Player) sender;
                 ItemStack item = new ItemStack(Material.EGG);
                 ItemMeta meta = item.getItemMeta();
-                meta.getPersistentDataContainer().set(new NamespacedKey(BomberMob.getInstance(), "BomberEgg"), PersistentDataType.STRING, "BomberEgg");
-                meta.setDisplayName(BOMBER_EGG_KEY);
+                meta.getPersistentDataContainer().set(BomberMob.Keys.BOMBER_EGG_KEY, PersistentDataType.STRING, Bomber.BOMBER_EGG_KEY);
                 meta.setDisplayName(BomberMob.Config.bomberEggName());
                 meta.setLore(BomberMob.Config.bomberEggLore());
                 meta.setCustomModelData(BomberMob.Config.bomberEggCustomModelData());

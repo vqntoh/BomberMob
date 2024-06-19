@@ -1,14 +1,17 @@
 package me.sedano.bombermob;
 
+import me.sedano.bombermob.entity.Bomber;
 import me.sedano.bombermob.listeners.BomberListener;
 import me.sedano.bombermob.tasks.BomberTask;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
 public final class BomberMob extends JavaPlugin {
 
-    private static BomberMob instance;
+    private static  BomberMob instance;
+    private static final BomberTask task = new BomberTask();
 
     @Override
     public void onEnable() {
@@ -18,7 +21,7 @@ public final class BomberMob extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BomberListener(), this);
         getCommand("bomberegg").setExecutor(new BomberListener.BomberEggCommand());
 
-        new BomberTask().runTaskTimer(this, 0L, 20L * Config.bomberExplosionTime());
+        task.runTaskTimer(this, 0L, 20L * Config.bomberExplosionTime());
     }
 
     public static BomberMob getInstance() {
@@ -45,5 +48,9 @@ public final class BomberMob extends JavaPlugin {
         public static int bomberHealth() {
             return instance.getConfig().getInt("bomber-health");
         }
+    }
+    public static class Keys {
+        public static final NamespacedKey BOMBER_MOB_KEY = new NamespacedKey(BomberMob.getInstance(), Bomber.BOMBER_MOB_KEY);
+        public static final NamespacedKey BOMBER_EGG_KEY = new NamespacedKey(BomberMob.getInstance(), Bomber.BOMBER_EGG_KEY);
     }
 }
